@@ -38,21 +38,25 @@ function drawBall() {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
+    drawPaddle();
 
-    // Ball bouncing off from the left and right
+    // Ball bouncing off from the left and right walls.
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
       dx = -dx;
     }
-    // Ball bouncing off from top edge and bottom edge 
-    if (y + dy > canvas.height || y + dy < ballRadius) {
+    // Ball bouncing off from top edge and bottom edge.
+    if (y + dy < ballRadius) {
       dy = -dy;
+    } else if (y + dy > canvas.height - ballRadius) {
+      if (x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy;
+      } else {
+        alert("GAME OVER");
+        document.location.reload();
+        clearInterval(interval);
+      }
     }
-
     
-
-    x += dx;
-    y += dy;
-
     /*
     Allows the paddle to move the paddle on the screen.
     if (rightPressed) {
@@ -68,9 +72,11 @@ function drawBall() {
       paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
     } else if (leftPressed) {
       paddleX = Math.max(paddleX - 7, 0);
-    }    
+    }
 
-    drawPaddle();
+    x += dx;
+    y += dy;
+
   }
 
   // EventListener listens for key presses 
@@ -94,4 +100,4 @@ function drawBall() {
     }
   }
   
-  setInterval(draw, 10);
+  const interval = setInterval(draw, 10);
