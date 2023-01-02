@@ -131,6 +131,15 @@ function drawBall() {
   // EventListener listens for key presses 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
+  document.addEventListener("mousemove", mouseMoveHandler, false);
+
+  function mouseMoveHandler(e) {
+    const relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth / 2;
+    }
+  }
+  
 
   // the "key" holds information about the key that is being pressed.
   function keyDownHandler(e) {
@@ -167,7 +176,7 @@ function drawBall() {
             if (score === brickRowCount * brickColumnCount) {
               alert("YOU WIN, CONGRATULATIONS!");
               document.location.reload();
-              clearInterval(interval); // For browser to end game
+              clearInterval(interval); // For browser to end game.
             }
           }
         }
