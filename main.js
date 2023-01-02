@@ -24,6 +24,7 @@ const brickHeight = 20;
 const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
+let score = 0;
 
 
 /*
@@ -85,6 +86,7 @@ function drawBall() {
     drawBricks();
     drawBall();
     drawPaddle();
+    drawScore();
     collisionDetection();
 
     // Ball bouncing off from the left and right walls.
@@ -161,10 +163,22 @@ function drawBall() {
           ) {
             dy = -dy;
             b.status = 0;
+            score++;
+            if (score === brickRowCount * brickColumnCount) {
+              alert("YOU WIN, CONGRATULATIONS!");
+              document.location.reload();
+              clearInterval(interval); // For browser to end game
+            }
           }
         }
       }
     }
+  }  
+
+  function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText(`Score: ${score}`, 8, 20);
   }  
   
   const interval = setInterval(draw, 10);
