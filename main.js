@@ -25,6 +25,7 @@ const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 let score = 0;
+let lives = 3;
 
 
 /*
@@ -42,7 +43,6 @@ for (let c = 0; c < brickColumnCount; c++) {
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
-
 
 // Function to loop via all the bricks in the array.
 function drawBricks() {
@@ -63,7 +63,6 @@ function drawBricks() {
   }
 }
 
-
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -80,13 +79,13 @@ function drawBall() {
     ctx.closePath();
   }
   
-  
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
     drawBall();
     drawPaddle();
     drawScore();
+    drawLives();
     collisionDetection();
 
     // Ball bouncing off from the left and right walls.
@@ -100,9 +99,20 @@ function drawBall() {
       if (x > paddleX && x < paddleX + paddleWidth) {
         dy = -dy;
       } else {
-        alert("GAME OVER");
-        document.location.reload();
-        clearInterval(interval);
+        /* If statement mentions if theres no more lives "GAME OVER" is prompt, the screen reloads,
+        and the browser closes the interval.
+        Else highlights code that will */
+        lives--;
+        if (!lives) {
+          alert("GAME OVER");
+          document.location.reload();
+        } else {
+          x = canvas.width / 2;
+          y = canvas.height - 30;
+          dx = 2;
+          dy = -2;
+          paddleX = (canvas.width - paddleWidth) / 2;
+        }
       }
     }
     
@@ -126,6 +136,9 @@ function drawBall() {
     x += dx;
     y += dy;
 
+    /* Draw function will get executed within the "requestAnimationFrame() loop" 
+    This will let the browser have complete control of the frame rate */
+    requestAnimationFrame(draw);
   }
 
   // EventListener listens for key presses 
@@ -139,7 +152,6 @@ function drawBall() {
       paddleX = relativeX - paddleWidth / 2;
     }
   }
-  
 
   // the "key" holds information about the key that is being pressed.
   function keyDownHandler(e) {
@@ -176,7 +188,6 @@ function drawBall() {
             if (score === brickRowCount * brickColumnCount) {
               alert("YOU WIN, CONGRATULATIONS!");
               document.location.reload();
-              clearInterval(interval); // For browser to end game.
             }
           }
         }
@@ -190,4 +201,10 @@ function drawBall() {
     ctx.fillText(`Score: ${score}`, 8, 20);
   }  
   
-  const interval = setInterval(draw, 10);
+  function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
+  }  
+  
+  draw();
