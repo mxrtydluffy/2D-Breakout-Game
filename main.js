@@ -17,7 +17,7 @@ let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
 // Brick variables 
-const brickRowCount = 3;
+const brickRowCount = 4;
 const brickColumnCount = 5;
 const brickWidth = 75;
 const brickHeight = 20;
@@ -40,6 +40,7 @@ for (let c = 0; c < brickColumnCount; c++) {
   bricks[c] = [];
   // r = brick rows
   for (let r = 0; r < brickRowCount; r++) {
+    // Paints on 2D array
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
@@ -49,13 +50,15 @@ function drawBricks() {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
       if (bricks[c][r].status === 1) {
+        // Setting the location
         const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
         const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+        // Setting properties of the bricks
         bricks[c][r].x = brickX;
         bricks[c][r].y = brickY;
         ctx.beginPath();
         ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "#228B22";
         ctx.fill();
         ctx.closePath();
       }
@@ -66,7 +69,7 @@ function drawBricks() {
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#AD1D40";
     ctx.fill();
     ctx.closePath();
   }
@@ -74,7 +77,7 @@ function drawBall() {
   function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#949494";
     ctx.fill();
     ctx.closePath();
   }
@@ -197,13 +200,13 @@ function drawBall() {
 
   function drawScore() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "black";
     ctx.fillText(`Score: ${score}`, 8, 20);
   }  
   
   function drawLives() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "black";
     ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
   }  
   
