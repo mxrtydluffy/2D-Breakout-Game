@@ -4,18 +4,23 @@ const ctx = canvas.getContext('2d');
 // Starting point at the bottom center of the Canvas
 let x = canvas.width / 2;
 let y = canvas.height - 30;
+
 // Defining small values to make it appear the ball is moving
 let dx = 2;
 let dy = -2;
+
 // Detects collision if ball touches the wall.
 const ballRadius = 10;
+
 // Defining paddle properties
 const paddleHeight = 10;
 const paddleWidth = 75;
 let paddleX = (canvas.width - paddleWidth) / 2;
+
 // Boolean variables can be utilized when buttons are pressed.
 let rightPressed = false;
 let leftPressed = false;
+
 // Brick variables
 const brickRowCount = 4;
 const brickColumnCount = 5;
@@ -24,8 +29,10 @@ const brickHeight = 20;
 const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
-const score = 0;
-const lives = 3;
+
+// Score & lives info
+let score = 0;
+let lives = 3;
 
 /*
 Number of rows, columns, width amd height of bricks are defined. Padding is
@@ -35,10 +42,10 @@ Top and left offset so its not drawn from the edge of the canvas.
 */
 const bricks = [];
 // c = brick columns
-for (let c = 0; c < brickColumnCount; c) {
+for (let c = 0; c < brickColumnCount; c += 1) {
   bricks[c] = [];
   // r = brick rows
-  for (let r = 0; r < brickRowCount; r) {
+  for (let r = 0; r < brickRowCount; r += 1) {
     // Paints on 2D array
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
@@ -46,8 +53,8 @@ for (let c = 0; c < brickColumnCount; c) {
 
 // Function to loop via all the bricks in the array.
 function drawBricks() {
-  for (let c = 0; c < brickColumnCount; c) {
-    for (let r = 0; r < brickRowCount; r) {
+  for (let c = 0; c < brickColumnCount; c += 1) {
+    for (let r = 0; r < brickRowCount; r += 1) {
       if (bricks[c][r].status === 1) {
         // Setting the location
         const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
@@ -65,22 +72,21 @@ function drawBricks() {
   }
 }
 
-function drawBall() {
-  ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-  ctx.fillStyle = '#AD1D40';
-  ctx.fill();
-  ctx.closePath();
+// Must be first
+function drawScore() {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = 'black';
+  ctx.fillText(`Score: ${score}`, 8, 20);
 }
 
-function drawPaddle() {
-  ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = '#949494';
-  ctx.fill();
-  ctx.closePath();
+// Then lives are drawn
+function drawLives() {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = 'black';
+  ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
 }
 
+// Moving options
 function mouseMoveHandler(e) {
   const relativeX = e.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
@@ -105,26 +111,21 @@ function keyUpHandler(e) {
   }
 }
 
-// EventListener listens for key presses
-document.addEventListener('keydown', keyDownHandler, false);
-document.addEventListener('keyup', keyUpHandler, false);
-document.addEventListener('mousemove', mouseMoveHandler, false);
-
 // Result in the ball changing its direction.
 function collisionDetection() {
-  for (let c = 0; c < brickColumnCount; c) {
-    for (let r = 0; r < brickRowCount; r) {
+  for (let c = 0; c < brickColumnCount; c += 1) {
+    for (let r = 0; r < brickRowCount; r += 1) {
       const b = bricks[c][r];
       if (b.status === 1) {
         if (
-          x > b.x &&
-          x < b.x + brickWidth &&
-          y > b.y &&
-          y < b.y + brickHeight
+          x > b.x
+          && x < b.x + brickWidth
+          && y > b.y
+          && y < b.y + brickHeight
         ) {
           dy = -dy;
           b.status = 0;
-          score;
+          score += 1;
           if (score === brickRowCount * brickColumnCount) {
             alert('YOU WIN, CONGRATULATIONS!');
             document.location.reload();
@@ -135,16 +136,20 @@ function collisionDetection() {
   }
 }
 
-function drawScore() {
-  ctx.font = '16px Arial';
-  ctx.fillStyle = 'black';
-  ctx.fillText(`Score: ${score}`, 8, 20);
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+  ctx.fillStyle = '#AD1D40';
+  ctx.fill();
+  ctx.closePath();
 }
 
-function drawLives() {
-  ctx.font = '16px Arial';
-  ctx.fillStyle = 'black';
-  ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
+function drawPaddle() {
+  ctx.beginPath();
+  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+  ctx.fillStyle = '#949494';
+  ctx.fill();
+  ctx.closePath();
 }
 
 function draw() {
@@ -170,7 +175,7 @@ function draw() {
       /* If statement mentions if theres no more lives "GAME OVER" is prompt, the screen reloads,
         and the browser closes the interval.
         Else highlights code that will */
-      lives;
+      lives -= 1;
       if (!lives) {
         alert('GAME OVER');
         document.location.reload();
@@ -204,9 +209,14 @@ function draw() {
   x += dx;
   y += dy;
 
-  /* Draw function will get executed within the "requestAnimationFrame() loop" 
+  /* Draw function will get executed within the "requestAnimationFrame() loop"
     This will let the browser have complete control of the frame rate */
   requestAnimationFrame(draw);
 }
 
-draw()
+// EventListener listens for key presses
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+document.addEventListener('mousemove', mouseMoveHandler, false);
+
+draw();
