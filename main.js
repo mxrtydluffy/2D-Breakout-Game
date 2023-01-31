@@ -1,3 +1,5 @@
+import Ball from "./JS/ball";
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -102,6 +104,8 @@ function drawBall() {
   ctx.closePath();
 }
 
+
+
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
@@ -181,7 +185,8 @@ function collisionDetection() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
-  drawBall();
+  ball.render(ctx);
+  ball.move();
   drawPaddle();
   drawScore();
   drawLives();
