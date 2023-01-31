@@ -8,6 +8,16 @@ class Sprite {
         this.color = color;
     }
 
+    moveTo(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    moveBy(dx, dy) {
+        this.x += dx;
+        this.y += dy;
+    }
+
     // Redirects the HTML page and overrides the existing render method
     render(ctx) {
         ctx.beginPath();
