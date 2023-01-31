@@ -1,4 +1,5 @@
 import Ball from "./JS/ball";
+import Brick from './Brick.js';
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -104,7 +105,7 @@ function drawBall() {
   ctx.closePath();
 }
 
-
+let ball = new Ball(x, y);
 
 function drawPaddle() {
   ctx.beginPath();
@@ -135,26 +136,28 @@ addEventListener('mousemove', mouseMoveHandler, false);
 //   }
 // }
 
-// // Function to loop via all the bricks in the array.
-// function drawBricks() {
-//   for (let c = 0; c < brickColumnCount; c += 1) {
-//     for (let r = 0; r < brickRowCount; r += 1) {
-//       if (bricks[c][r].status === 1) {
-//         // Setting the location
-//         const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
-//         const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
-//         // Setting properties of the bricks
-//         bricks[c][r].x = brickX;
-//         bricks[c][r].y = brickY;
-//         ctx.beginPath();
-//         ctx.rect(brickX, brickY, brickWidth, brickHeight);
-//         ctx.fillStyle = changeBrickColor(r);
-//         ctx.fill();
-//         ctx.closePath();
-//       }
-//     }
-//   }
-// }
+// Function to loop via all the bricks in the array.
+function drawBricks() {
+  for (let c = 0; c < brickColumnCount; c += 1) {
+    for (let r = 0; r < brickRowCount; r += 1) {
+      if (bricks[c][r].status === 1) {
+        // Setting the location
+        const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+        const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+        // Setting properties of the bricks
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
+        // ctx.beginPath();
+        // ctx.rect(brickX, brickY, brickWidth, brickHeight);
+        // ctx.fillStyle = changeBrickColor(r);
+        // ctx.fill();
+        // ctx.closePath();
+        const brick = new Brick(brickX, brickY);
+        brick.render(ctx);
+      }
+    }
+  }
+}
 
 // Result in the ball changing its direction.
 function collisionDetection() {
