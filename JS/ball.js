@@ -1,28 +1,26 @@
 // Import later to main.js
-import Sprite from "./sprite.js";
+import Sprite from "./JS/sprite.js";
 
 class Ball extends Sprite{
-    constructor(x, y, radius, color, canvas) {
-        this.x = x;
-        this.y = y;
+    constructor(color, x = 0, y = 0, radius = 10,) {
+        super(x, y, 0, 0, color);
         this.color = color;
-        this.canvas = canvas;
-        this.dx = 2;
-        this.dy = -2;
         this.radius = radius;
-    }
-
-    render(context) {
-        context.beginPath();
-        context.arc(this.x, this.y, this.radius, 0, MATH.PI * 2);
-        context.fillStyle = this.color;
-        context.fill();
-        context.closePath();
+        this.dx = 2;
+        this.dy = -2
     }
 
     move() {
         this.x += this.dx;
         this.y += this.dy;
+    }
+
+    render(ctx) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, MATH.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
     }
   }
 
