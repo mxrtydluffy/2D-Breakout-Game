@@ -1,5 +1,5 @@
 // Import later to main.js
-import Sprite from "./sprite";
+import Sprite from "./sprite.js";
 
 class Ball extends Sprite{
     constructor(x, y, radius, color, canvas) {
