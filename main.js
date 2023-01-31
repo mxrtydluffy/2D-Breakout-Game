@@ -1,6 +1,7 @@
 import Ball from "./JS/ball.js";
-import Brick from './JS/brick.js';
+import Brick from "./JS/brick.js";
 import Paddle from "./JS/paddle.js";
+import Text from "./JS/info.js";
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -35,8 +36,8 @@ let leftPressed = false;
 // const brickOffsetLeft = 30;
 
 // Score & lives info
-let score = 0;
-let lives = 3;
+const score = 0;
+const lives = 3;
 
 // // Declare Colors
 // const brickColors = ["#8B4411", "#AE6E4E", "#CC9767", "#A57A5A"]
@@ -108,6 +109,8 @@ function drawBall() {
 
 const ball = new Ball(x, y);
 const paddle = new Paddle(paddleX, canvas.height - 10);
+const scoreText = new Text(8, 20, color, score, 'Score: ');
+const livesText = new Text(canvas.width - 65, 20, color, lives, "Lives: ")
 
 // function drawPaddle() {
 //   ctx.beginPath();
@@ -161,6 +164,14 @@ function drawBricks() {
   }
 }
 
+function movePaddle() {
+  if (rightPressed && paddle.x < canvas.width - paddleWidth) {
+    paddle.move(7);
+  } else if (leftPressed && paddle.x > 0) {
+    paddle.move(-7);
+  }
+}
+
 // Result in the ball changing its direction.
 function collisionDetection() {
   for (let c = 0; c < brickColumnCount; c += 1) {
@@ -169,15 +180,15 @@ function collisionDetection() {
       const {x: brickX, y: brickY, status} = b;
       if (status === 1) {
         if (
-          x > brickX
-          && x < brickX + brickWidth
-          && y > brickY
-          && y < brickY + brickHeight
+          ball.x > brickX
+          && ball.x < brickX + brickWidth
+          && ball.y > brickY
+          && ball.y < brickY + brickHeight
         ) {
           dy = -dy;
-          b.status = 0;
-          score += 1;
-          if (score === brickRowCount * brickColumnCount) {
+          ball.dy = -ball.dy;
+          scoreText.value += 1;
+          if (scoreText.value === brickRowCount * brickColumnCount) {
             alert('YOU WIN, CONGRATULATIONS!');
             document.location.reload();
           }
@@ -193,13 +204,13 @@ function draw() {
   ball.render(ctx);
   ball.move();
   paddle.render(ctx);
-  drawScore();
-  drawLives();
+  scoreText.render(ctx);
+  livesText.render(ctx);
   collisionDetection();
 
   // Ball bouncing off from the left and right walls.
-  if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-    dx = -dx;
+  if (ball.x + ball.dx > canvas.width - ballRadius || ball.x + ball.dx < ballRadius) {
+    ball.dx = -ball.dx;
   }
   // Ball bouncing off from top edge and bottom edge.
   if (y + dy < ballRadius) {
