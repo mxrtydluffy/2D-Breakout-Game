@@ -1,5 +1,6 @@
-import Ball from "./JS/ball";
-import Brick from './Brick.js';
+import Ball from "./JS/ball.js";
+import Brick from './JS/brick.js';
+import Paddle from "./JS/paddle.js";
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -105,15 +106,16 @@ function drawBall() {
   ctx.closePath();
 }
 
-let ball = new Ball(x, y);
+const ball = new Ball(x, y);
+const paddle = new Paddle(paddleX, canvas.height - 10);
 
-function drawPaddle() {
-  ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = '#949494';
-  ctx.fill();
-  ctx.closePath();
-}
+// function drawPaddle() {
+//   ctx.beginPath();
+//   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+//   ctx.fillStyle = '#949494';
+//   ctx.fill();
+//   ctx.closePath();
+// }
 
 // EventListener listens for key presses
 const {addEventListener} = document;
@@ -190,7 +192,7 @@ function draw() {
   drawBricks();
   ball.render(ctx);
   ball.move();
-  drawPaddle();
+  paddle.render(ctx);
   drawScore();
   drawLives();
   collisionDetection();
