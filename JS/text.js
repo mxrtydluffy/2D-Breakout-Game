@@ -1,6 +1,3 @@
-import { createGzip } from 'zlib';
-import Sprite from './sprite.js';
-
 class Text {
     constructor(x, y, color, value, displayText) {
         this.x = x;
@@ -8,16 +5,7 @@ class Text {
         this.color = color;
         this.value = value;
         this.font = '16px Arial';
-        this.displayText = displayTexxt
-    }
-}
-
-class Text extends Sprite {
-    constructor(x = 0, y = 0, radius = 10, color = '#0095DD') {
-        super(x, y, 0, 0, color);
-        this.radius = radius;
-        this.dx = 2;
-        this.dy = -2;
+        this.diusplayText = displayText;
     }
 
     render(ctx) {
@@ -27,4 +15,4 @@ class Text extends Sprite {
     }
 }
 
-export default Text
+export default Text;
