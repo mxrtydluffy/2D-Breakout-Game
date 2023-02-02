@@ -1,4 +1,4 @@
-import Sprite from './Sprite';
+import Sprite from './sprite';
 
 class Background extends Sprite {
     constructor(x: number, y: number, width: number, height: number, color: string = '#EAE0C8') {

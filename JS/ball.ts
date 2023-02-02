@@ -1,5 +1,4 @@
-import { stringify } from 'json5';
-import Sprite from './Sprite';
+import Sprite from './sprite';
 
 class Ball extends Sprite {
     color: string;

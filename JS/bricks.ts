@@ -1,10 +1,10 @@
 // This brick class will create new bricks
-import Brick from './brick.js';
+import Brick from './brick';
 
 class Bricks {
     cols: number;
     rows: number;
-    bricks: Brick[];
+    bricks: Brick[][];
     brickWidth: number;
     brickHeight: number;
     brickPadding: number;
