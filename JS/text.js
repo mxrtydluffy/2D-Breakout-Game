@@ -5,7 +5,7 @@ class Text {
         this.color = color;
         this.value = value;
         this.font = '16px Arial';
-        this.diusplayText = displayText;
+        this.displayText = displayText;
     }
 
     render(ctx) {

@@ -33,16 +33,16 @@ class Bricks {
         }
     }
 
-    render (ctx) {
+    render(ctx) {
         for (let c = 0; c < this.cols; c += 1) {
             for (let r = 0; r < this.rows; r += 1) {
                 if (this.bricks[c][r].status === 1) {
                     const brick = this.bricks[c][r];
-                    brick.render(ctx)
+                    brick.render(ctx);
                 }
             }
         }
     }
 }
 
-export default Brick;
+export default Bricks;
