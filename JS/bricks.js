@@ -1,5 +1,5 @@
 // This brick class will create new bricks
-import Brick from './JS/brick.js'
+import Brick from './brick.js';
 
 class Bricks {
     constructor(rows = 4, cols = 5) {

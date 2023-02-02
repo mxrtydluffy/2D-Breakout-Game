@@ -1,4 +1,4 @@
-import Sprite from "./JS/sprite.js";
+import Sprite from './sprite.js';
 
 class Ball extends Sprite {
     constructor(color, x = 0, y = 0, radius = 10) {
