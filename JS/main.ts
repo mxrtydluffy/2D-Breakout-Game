@@ -54,7 +54,7 @@ class Game {
 
     this.resetBallAndPaddle();
 
-    const { addEventListener } = document;
+    const {addEventListener} = document;
     // For pressed keys
     addEventListener('keydown', this.keyDownHandler.bind(this), false);
     addEventListener('keyup', this.keyUpHandler.bind(this), false);
@@ -109,7 +109,7 @@ class Game {
 
   // Moving options
   // the "key" holds information about the key that is being pressed.
-  keyDownHandler({key}: {key:any}): void {
+  keyDownHandler({key}: {key:string}): void {
     if (key === 'Right' || key === 'ArrowRight') {
       this.rightPressed = true;
     } else if (key === 'Left' || key === 'ArrowLeft') {
@@ -117,7 +117,7 @@ class Game {
     }
   }
 
-  keyUpHandler({key}: {key:any}): void {
+  keyUpHandler({key}: {key:string}): void {
     if (key === 'Right' || key === 'ArrowRight') {
       this.rightPressed = false;
     } else if (key === 'Left' || key === 'ArrowLeft') {
@@ -125,7 +125,7 @@ class Game {
     }
   }
 
-  mouseMoveHandler({clientX}: {clientX:any}): void {
+  mouseMoveHandler({clientX}: {clientX:number}): void {
     const relativeX = clientX - this.canvas.offsetLeft;
     if (relativeX > 0 && relativeX < this.canvas.width) {
       this.paddle.moveBy(relativeX - this.paddle.width / 2);
