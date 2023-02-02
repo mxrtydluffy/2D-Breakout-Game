@@ -2,6 +2,14 @@
 import Brick from './brick.js';
 
 class Bricks {
+    cols: number;
+    rows: number;
+    bricks: Brick[];
+    brickWidth: number;
+    brickHeight: number;
+    brickPadding: number;
+    brickOffset: number;
+
     constructor(rows = 4, cols = 5) {
         this.cols = cols;
         this.rows = rows;
@@ -13,7 +21,7 @@ class Bricks {
         this.drawbricks();
     }
 
-    drawbricks() {
+    drawbricks(): void {
         for (let c = 0; c < this.cols; c += 1) {
             this.bricks[c] = [];
             for (let r = 0; r < this.rows; r += 1) {
@@ -33,7 +41,7 @@ class Bricks {
         }
     }
 
-    render(ctx) {
+    render(ctx: CanvasRenderingContext2D): void {
         for (let c = 0; c < this.cols; c += 1) {
             for (let r = 0; r < this.rows; r += 1) {
                 if (this.bricks[c][r].status === 1) {

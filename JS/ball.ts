@@ -1,13 +1,22 @@
-import Sprite from './sprite.js';
+import { stringify } from 'json5';
+import Sprite from './Sprite';
 
 class Ball extends Sprite {
-    constructor(color, x = 0, y = 0, radius = 10) {
+    color: string;
+    radius: number;
+    dx: number;
+    dy: number;
+    x: number;
+    y: number;
+
+    constructor(color: string, x: number = 0, y: number = 0, radius: number = 10) {
         super(x, y, 0, 0, color);
         this.color = color;
         this.radius = radius;
         this.dx = 2;
         this.dy = -2;
     }
+    
 
     moveTo() {
         this.x += this.dx;
@@ -19,7 +28,7 @@ class Ball extends Sprite {
         this.color = `#${(Math.floor(Math.random() * 0x1000000) + 0x1000000).toString(16).substring(1)}`;
     }
 
-    render(ctx) {
+    render(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
