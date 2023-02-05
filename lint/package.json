@@ -1,0 +1,25 @@
+{
+  "name": "assignment-1-breakout",
+  "version": "1.0.0",
+  "description": "Learning JavaScript by building a classic 2D-Breakout Game",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mxrtydluffy/2D-Breakout-Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mxrtydluffy/2D-Breakout-Game/issues"
+  },
+  "homepage": "https://github.com/mxrtydluffy/2D-Breakout-Game#readme",
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}
