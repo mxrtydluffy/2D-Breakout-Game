@@ -39,6 +39,6 @@ Destroy the bricks with the ball to earn points! Use the left & right keyboard a
 ```
 ## Quick Glimpse
 
-https://github.com/mxrtydluffy/2D-Breakout-Game/blob/breakout-ts/demo_pic.png?raw=true
+![demo_pic](https://github.com/mxrtydluffy/2D-Breakout-Game/blob/breakout-ts/demo_pic.png?raw=true)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)]
